@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name=" iewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="\style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="title-block">
+            <h1 class="title">To-Do List</h1>
+            <button class="box-btn clear-btn js-clear">Clear</button>
+        </div>
+        <div class="infield">
+            <input type="text" placeholder="e.g. Run for 30 minutes" class="js-todo-in" onkeydown="checkEnter(event.key)" required>
+            <input type="date" class="js-date-in">
+            <button class="add-btn box-btn js-add">Add</button>
+        </div>
+        <div class="js-outputs"></div>
+    </div>
+    
+
+    <script src="todo.js"></script>
+  </body>
+</html>

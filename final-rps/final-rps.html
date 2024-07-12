@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+    <link rel="stylesheet" href="\style.css">
+</head>
+<body>
+
+    <!-- rps -->
+    <div class = "container">
+        <div class="title">
+            <h1>ROCK PAPER SCISSORS</h1>
+        </div>
+        <div class="row">
+            <button class="btn circle js-rock" >
+                <img src="img/rock.png" alt="rock" class="emojis">
+            </button>
+            <button class="btn circle js-paper">
+                <img src="img/paper.png" alt="paper" class="emojis">
+            </button>
+            <button class="btn circle js-scissors">
+                <img src="img/scissors.png" alt="paper" class="emojis">
+            </button>
+        </div>  
+        <div>
+            <h2 class="result"></h2>
+        </div>
+        <div class="row">
+            <button class="btn circle js-reset">
+                Reset Scores
+            </button>
+            <button class="btn circle auto-btn js-auto">
+                Auto Play
+            </button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="btns">
+            <button class="btn js-btn" disabled>wins: <span class="myWins"></span></button>
+            <button class="btn" disabled>losses: <span class="myLoss"></span></button>
+            <button class="btn" disabled>ties: <span class="myTies"></span></button>
+        </div>
+    </div>
+    
+    <script src="final-rps.js"></script>
+</body>
+</html>

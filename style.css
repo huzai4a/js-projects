@@ -1,0 +1,110 @@
+body{
+    background-color: #ffb5b5;
+    color: #04045e;
+    font-family: 'Segoe UI';
+}
+
+/* rps */
+.container{
+    display:flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+.footer{
+    position:fixed;
+    right:0px;
+    bottom:0px;
+    padding: 2%;
+}
+
+/* general buttons */
+.btn{
+    background-color: antiquewhite;
+    border-radius: 3em;
+    font-size: 1em;
+    opacity: 0.85;
+    cursor: pointer;
+}
+.btn:hover{
+    opacity: 1;
+}
+.box-btn{
+    padding:1em;
+    font-size: 15px;
+    border-radius: 0;
+    cursor: pointer;
+    border: none;
+}
+
+/* yt btn */
+.subscribe{
+    background-color: black;
+    color: white;
+    border-radius: 2em;
+    border: none;
+    padding: 10%;
+} 
+/* note: keeping .subscribed below .subscribe allows it to overwrite predetermined styles */
+.subscribed{
+    background-color: rgb(240,240,240);
+    color: black;
+}
+
+/* amazon shipping  */
+input{
+    padding:1em;
+    font-size: 15px;
+}
+
+/* final rps */
+.emojis{
+    max-width: 5em;
+    max-height: 5em;
+    padding: 1em;
+}
+.intext{
+    max-width: 2em;
+    max-height: 2em;
+}
+.circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8em; /* Adjust width as needed */
+    height: 8em; /* Adjust height as needed */
+    margin: 0 3px;
+    border-radius: 100%;
+}
+.row{
+    display: flex;
+}
+
+
+/* to-do list */
+.add-btn{
+    background-color: green;
+    color:white;
+}
+.delete-btn{
+    background-color: maroon;
+    color:white;
+}
+.listItem, .infield{
+    display: grid;
+    grid-template-columns: 250px 100px 100px;
+    column-gap: 10px;
+    margin: 10px;
+}
+.listText{
+    flex-grow: 1;
+}
+.title-block{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.clear-btn{
+    background-color: rgb(54, 54, 54);
+    color:white;
+}

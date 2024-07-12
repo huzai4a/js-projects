@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <link rel="stylesheet" href="\style.css">
+</head>
+<body>
+
+    <!-- yt button -->
+    <div class="container">
+        <div class="title">
+            <h2>Mimic YouTube Sub Button</h2>
+        </div>
+        <div class="btns">
+            <button class="yt-btn subscribe" onclick="changeText()">Subscribe</button>
+        </div>
+    </div>
+
+
+
+    <!-- rps -->
+    <div class = "container">
+        <div class="title">
+            <h2>ROCK PAPER SCISSORS</h2>
+        </div>
+        <div class="btns">
+            <button class="btn" onclick="decideWin(0);">Rock</button>
+            <button class="btn" onclick="decideWin(0.5);">Paper</button>
+            <button class="btn" onclick="decideWin(1);">Scissors</button>
+            <button class="btn" onclick="scoreReset();">Reset Scores</button>
+        </div>  
+        <div>
+            <h2 class="result"></h2>
+        </div>
+        
+    </div>
+
+    <!-- shipping -->
+    <div class="container">
+        <div class="title">
+            <h2>Amazon Shipping Calculator</h2>
+            <h4>Order < $40? +$10 Shipping</h4>
+            <h4>Order > $40? FREE Shipping</h4>
+        </div>
+        <div class="btns">
+            <input type="text" placeholder="e.g. 75" class="js-cost-in" onkeydown="checkEnter(event.key)">
+            <button class="btn box-btn" onclick="checkShipping()">Calculate</button>
+            <h4 class = "calculated"></h4>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="stats">
+            <button class="btn js-btn" disabled>wins: <span class="myWins"></span></button>
+            <button class="btn" disabled>losses: <span class="myLoss"></span></button>
+            <button class="btn" disabled>ties: <span class="myTies"></span></button>
+        </div>
+    </div>
+    
+    <script src="dom.js"></script>
+</body>
+</html>
