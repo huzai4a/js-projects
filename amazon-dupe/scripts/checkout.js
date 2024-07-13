@@ -1,6 +1,9 @@
-import { cart, removeFromCart } from '../data/cart.js';
+import { calculateCartQuantity, cart, removeFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+// calls when page loaded
+updateCartQuantity();
 
 let allItemsHtml = '';
 
@@ -103,12 +106,17 @@ document.querySelector('.js-order-summary').innerHTML = allItemsHtml;
 document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
         link.addEventListener('click', () => {
-            // reminder that going from kebab case to camel case when going from html dataset to js const
-            const {productId} = link.dataset;
-            removeFromCart(productId);
-            
-            document.querySelector(`.js-cart-item-container-${productId}`).remove();
+          // reminder that going from kebab case to camel case when going from html dataset to js const
+          const {productId} = link.dataset;
+          removeFromCart(productId);
+          
+          document.querySelector(`.js-cart-item-container-${productId}`).remove();
+
+          updateCartQuantity();
         });
     });
 
-    document.querySelector('.js-header-quantity').innerHTML = `${updateCartQuantity()} Items`;
+function updateCartQuantity(){
+  document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
+}
+

@@ -1,5 +1,5 @@
 // import { cart as myCart } from '../data/cart.js';
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -80,12 +80,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
 
 
 function updateCartQuantity () {
-    let totalQuantity = 0;
-
-        cart.forEach((cartItem) => {
-            totalQuantity += cartItem.quantity
-        });
-        document.querySelector('.js-total-quantity').innerHTML = `${totalQuantity}`;
+    document.querySelector('.js-total-quantity').innerHTML = `${calculateCartQuantity()}`;
 }
 
 function toggleAddedText(productId){
