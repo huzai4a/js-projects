@@ -4,6 +4,7 @@ import { formatCurrency } from './utils/money.js';
 
 let allItemsHtml = '';
 
+// get info for generated html
 cart.forEach((cartItem)=> {
     const { productId } = cartItem;
 
@@ -95,8 +96,10 @@ cart.forEach((cartItem)=> {
     allItemsHtml += html;
 });
 
+// generate all HTML
 document.querySelector('.js-order-summary').innerHTML = allItemsHtml;
 
+// delete items from cart
 document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
         link.addEventListener('click', () => {
@@ -107,3 +110,5 @@ document.querySelectorAll('.js-delete-link')
             document.querySelector(`.js-cart-item-container-${productId}`).remove();
         });
     });
+
+    document.querySelector('.js-header-quantity').innerHTML = `${updateCartQuantity()} Items`;
