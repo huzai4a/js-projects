@@ -1,6 +1,7 @@
 // import { cart as myCart } from '../data/cart.js';
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
+
 let productsHTML = '';
 
 products.forEach((product)=>{
@@ -63,36 +64,28 @@ const addedTimeouts = [];
 document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
     btn.addEventListener('click', () => {
         const { productId } = btn.dataset;
-        // stores object if its been added to cart already
-        let dupeItem;
+        
+        addToCart(productId);
 
-        cart.forEach((product)=>{
-            if (product.productId === productId){
-                dupeItem = product;
-            }
-        });
+        updateCartQuantity();
+        
+        toggleAddedText(productId);
+        
+    });
+});
 
-        const quantity = Number(document.querySelector(`.js-select-${productId}`).value);
 
-        if (dupeItem){
-            dupeItem.quantity+= quantity;
-        } else{
-            cart.push({
-                productId,
-                quantity
-            });
-            console.log(cart)
-        }
+function updateCartQuantity () {
+    let totalQuantity = 0;
 
-        let totalQuantity = 0;
-
-        cart.forEach((product) => {
-            totalQuantity += product.quantity
+        cart.forEach((cartItem) => {
+            totalQuantity += cartItem.quantity
         });
         document.querySelector('.js-total-quantity').innerHTML = `${totalQuantity}`;
-        
+}
 
-        document.querySelector(`.js-added-${productId}`).classList.add('visible');
+function toggleAddedText(productId){
+    document.querySelector(`.js-added-${productId}`).classList.add('visible');
         
     
         // if there was a previous timeout its id would be saved and referenced by productId as add to cart is clicked
@@ -107,6 +100,4 @@ document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
             document.querySelector(`.js-added-${productId}`).classList.remove('visible');
         }, 2000);
         addedTimeouts[productId] = timeoutID;
-        
-    });
-});
+}
