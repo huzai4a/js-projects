@@ -25,7 +25,7 @@ products.forEach((product)=>{
             </div>
 
             <div class="product-quantity-container">
-                <select>
+                <select class="js-select-${product.id}">
                 <option selected value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -65,12 +65,14 @@ document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
             }
         });
 
+        const selectedQuantity = Number(document.querySelector(`.js-select-${prodID}`).value);
+
         if (dupeItem){
-            dupeItem.quantity++;
+            dupeItem.quantity+= selectedQuantity;
         } else{
             cart.push({
                 productId: prodID,
-                quantity: 1,
+                quantity: selectedQuantity,
             });
         }
 
