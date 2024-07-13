@@ -143,6 +143,10 @@
      opacity and make it visible. */
   opacity: 0;
 }
+/* add this class to make added text visible */
+.visible{
+  opacity: 1;
+}
 
 .added-to-cart img {
   height: 20px;

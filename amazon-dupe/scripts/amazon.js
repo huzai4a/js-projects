@@ -41,7 +41,7 @@ products.forEach((product)=>{
 
             <div class="product-spacer"></div>
 
-            <div class="added-to-cart">
+            <div class="added-to-cart js-added-${product.id}">
                 <img src="images/icons/checkmark.png">
                 Added
             </div>
@@ -55,25 +55,26 @@ products.forEach((product)=>{
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
     btn.addEventListener('click', () => {
-        const prodID = btn.dataset.productId;
+        const { productId } = btn.dataset;
         // stores object if its been added to cart already
         let dupeItem;
 
         cart.forEach((product)=>{
-            if (product.productId === prodID){
+            if (product.productId === productId){
                 dupeItem = product;
             }
         });
 
-        const selectedQuantity = Number(document.querySelector(`.js-select-${prodID}`).value);
+        const quantity = Number(document.querySelector(`.js-select-${productId}`).value);
 
         if (dupeItem){
-            dupeItem.quantity+= selectedQuantity;
+            dupeItem.quantity+= quantity;
         } else{
             cart.push({
-                productId: prodID,
-                quantity: selectedQuantity,
+                productId,
+                quantity
             });
+            console.log(cart)
         }
 
         let totalQuantity = 0;
@@ -82,5 +83,11 @@ document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
             totalQuantity += product.quantity
         });
         document.querySelector('.js-total-quantity').innerHTML = `${totalQuantity}`;
+
+        document.querySelector(`.js-added-${productId}`).classList.add('visible');
+        // hides added text after 3s
+        setTimeout(()=>{
+            document.querySelector(`.js-added-${productId}`).classList.remove('visible');
+        }, 2000);
     })
 });
