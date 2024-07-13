@@ -29,3 +29,11 @@ export function addToCart(productId) {
         });
     }
 }
+
+export function removeFromCart (productId){
+    cart.forEach((cartItem, index)=> {
+        if (productId === cartItem.productId){
+            cart.splice(index, 1)
+        }
+    });
+}
