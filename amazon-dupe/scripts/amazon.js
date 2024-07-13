@@ -1,3 +1,5 @@
+// import { cart as myCart } from '../data/cart.js';
+import { cart } from '../data/cart.js';
 let productsHTML = '';
 
 products.forEach((product)=>{
@@ -53,6 +55,10 @@ products.forEach((product)=>{
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+// deals with timeout timing when showing 'added' text
+const addedTimeouts = [];
+
 document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
     btn.addEventListener('click', () => {
         const { productId } = btn.dataset;
@@ -83,11 +89,23 @@ document.querySelectorAll('.js-add-to-cart').forEach((btn)=>{
             totalQuantity += product.quantity
         });
         document.querySelector('.js-total-quantity').innerHTML = `${totalQuantity}`;
+        
 
         document.querySelector(`.js-added-${productId}`).classList.add('visible');
-        // hides added text after 3s
-        setTimeout(()=>{
+        
+    
+        // if there was a previous timeout its id would be saved and referenced by productId as add to cart is clicked
+        const previousTimeout = addedTimeouts[productId];
+        // same thing as saying != null
+        if (previousTimeout){
+            clearTimeout(previousTimeout)
+        }
+
+        // hides added text after 2s
+        const timeoutID = setTimeout(()=>{
             document.querySelector(`.js-added-${productId}`).classList.remove('visible');
         }, 2000);
-    })
+        addedTimeouts[productId] = timeoutID;
+        
+    });
 });
