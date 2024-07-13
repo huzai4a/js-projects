@@ -16,7 +16,7 @@ cart.forEach((cartItem)=> {
     });
 
     const html = 
-        `<div class="cart-item-container">
+        `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -103,6 +103,7 @@ document.querySelectorAll('.js-delete-link')
             // reminder that going from kebab case to camel case when going from html dataset to js const
             const {productId} = link.dataset;
             removeFromCart(productId);
-            console.log(cart);
+            
+            document.querySelector(`.js-cart-item-container-${productId}`).remove();
         });
     });
