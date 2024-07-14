@@ -1,10 +1,22 @@
 .quantity-input{
   width: 30px;
-}
-.quantity-input, .save-quantity-link {
   display: none;
 }
-.is-editing-quantity.quantity-input, .is-editing-quantity.save-quantity-link{
+.save-quantity-link {
+  display: none;
+}
+.is-editing-quantity{
+  .quantity-input, .save-quantity-link{
+    display: initial;
+  }
+}
+
+.is-editing-quantity{
+  .quantity-label, .update-quantity-link{
+    display: none;
+  }
+}
+.quantity-label, .update-quantity-link{
   display: initial;
 }
 
