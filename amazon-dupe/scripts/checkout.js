@@ -4,6 +4,7 @@ import { formatCurrency } from './utils/money.js';
 
 // calls when page loaded
 updateCartQuantity();
+calculateItemsCost();
 
 let allItemsHtml = '';
 
@@ -20,7 +21,7 @@ cart.forEach((cartItem)=> {
     });
 
     const html = 
-        `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+      `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -40,10 +41,12 @@ cart.forEach((cartItem)=> {
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary link- js-delete-link" data-product-id="${matchingProduct.id}">
+                  <input class="quantity-input">
+                  <span class="save-quantity-link link-primary">Save</span>
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
                     Delete
                   </span>
                 </div>
@@ -94,13 +97,24 @@ cart.forEach((cartItem)=> {
                 </div>
               </div>
             </div>
-          </div>`;
+        </div>`;
 
     allItemsHtml += html;
 });
 
 // generate all HTML
 document.querySelector('.js-order-summary').innerHTML = allItemsHtml;
+
+document.querySelectorAll('.js-update-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    const {productId} = link.dataset;
+    
+
+
+    // show the save and input
+    document.querySelector(`.js-cart-item-container-${productId}`).classList.add('is-editing-quantity');
+  });
+});
 
 // delete items from cart
 document.querySelectorAll('.js-delete-link')
@@ -113,10 +127,31 @@ document.querySelectorAll('.js-delete-link')
           document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
           updateCartQuantity();
+          calculateItemsCost();
         });
     });
 
+// updates header and order summary
 function updateCartQuantity(){
   document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
+
+  document.querySelector('.js-summary-row').innerText = `Items (${calculateCartQuantity()}):`;
 }
 
+// calculates cost for the order summary items section
+function calculateItemsCost () {
+  let centsTotal = 0;
+
+  cart.forEach((itemsChosen) => {
+    const { productId } = itemsChosen;
+
+    products.forEach((product) => {
+      //if product is found add it to total
+      if (product.id === productId) {
+        centsTotal += (product.priceCents*itemsChosen.quantity);
+      }
+    });
+  });
+
+  document.querySelector('.js-items-money').innerHTML = `$${(centsTotal/100).toFixed(2)}`;
+}
