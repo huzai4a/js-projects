@@ -44,7 +44,7 @@ cart.forEach((cartItem)=> {
                   <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
                     Update
                   </span>
-                  <input class="quantity-input quantity-input-${matchingProduct.id}">
+                  <input class="quantity-input quantity-input-${matchingProduct.id} js-quantity-input" data-product-id="${matchingProduct.id}">
                   <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">
                   Save
                   </span>
@@ -114,6 +114,32 @@ document.querySelectorAll('.js-update-link').forEach((link) => {
 
     // show the save and input
     document.querySelector(`.js-cart-item-container-${productId}`).classList.add('is-editing-quantity');
+  });
+});
+
+// input works same as save
+document.querySelectorAll('.js-quantity-input').forEach((link) => {
+  link.addEventListener('keydown', (event) => {
+    if (event.key === "Enter"){
+      const {productId} = link.dataset;
+
+      const newQuantity = Number(document.querySelector(`.quantity-input-${productId}`).value);
+
+      if (newQuantity < 0 || newQuantity >= 500) {
+        alert('Quantity must be at least 0 and less than 500');
+        return;
+      }
+
+      updateQuantity(productId, newQuantity);
+
+      // show the save and input
+      document.querySelector(`.js-cart-item-container-${productId}`).classList.remove('is-editing-quantity');
+
+      // self-note: it wasn't worth putting the second queryselector in any fn since only here will it be changed
+      updateQuantityHTML();
+      document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity;
+      calculateItemsCost ();
+    }
   });
 });
 
