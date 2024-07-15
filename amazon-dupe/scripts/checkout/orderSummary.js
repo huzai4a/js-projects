@@ -202,8 +202,7 @@ export function renderOrderSummary(){
             const {productId} = link.dataset;
             removeFromCart(productId);
             
-            document.querySelector(`.js-cart-item-container-${productId}`).remove();
-
+            renderOrderSummary();
             renderPaymentSummary();
             // calculateItemsCost();
           });
