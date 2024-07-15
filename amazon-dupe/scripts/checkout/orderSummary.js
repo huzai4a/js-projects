@@ -1,13 +1,13 @@
 import { calculateCartQuantity, cart, removeFromCart, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 
 export function renderOrderSummary(){
   // calls when page loaded
   updateQuantityHTML();
-  calculateItemsCost();
+//   calculateItemsCost();
 
   let allItemsHtml = '';
 
@@ -15,20 +15,9 @@ export function renderOrderSummary(){
   cart.forEach((cartItem)=> {
       const { productId } = cartItem;
 
-      let matchingProduct;
+      const matchingProduct = getProduct(productId);
 
-      products.forEach((product)=> {
-          if ( productId === product.id){
-              matchingProduct = product;
-          }
-      });
-
-      let deliveryOption;
-      deliveryOptions.forEach((option)=>{
-        if (option.id === cartItem.deliveryOptionId){
-          deliveryOption = option;
-        }
-      });
+      const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
       const today = dayjs();
       const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
       const dateString = deliveryDate.format('dddd, MMMM D');
@@ -168,7 +157,7 @@ export function renderOrderSummary(){
         // self-note: it wasn't worth putting the second queryselector in any fn since only here will it be changed
         updateQuantityHTML();
         renderOrderSummary()
-        calculateItemsCost ();
+        // calculateItemsCost ();
       }
     });
   });
@@ -194,7 +183,7 @@ export function renderOrderSummary(){
       // self-note: it wasn't worth putting the second queryselector in any fn since only here will it be changed
       updateQuantityHTML();
       renderOrderSummary();
-      calculateItemsCost ();
+    //   calculateItemsCost ();
       
     });
   });
@@ -211,34 +200,13 @@ export function renderOrderSummary(){
             document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
             updateQuantityHTML();
-            calculateItemsCost();
+            // calculateItemsCost();
           });
       });
 
   // updates header and order summary
   function updateQuantityHTML(){
     document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
-
-    document.querySelector('.js-summary-row').innerText = `Items (${calculateCartQuantity()}):`;
-  }
-
-
-  // calculates cost for the order summary items section
-  function calculateItemsCost () {
-    let centsTotal = 0;
-
-    cart.forEach((itemsChosen) => {
-      const { productId } = itemsChosen;
-
-      products.forEach((product) => {
-        //if product is found add it to total
-        if (product.id === productId) {
-          centsTotal += (product.priceCents*itemsChosen.quantity);
-        }
-      });
-    });
-
-    document.querySelector('.js-items-money').innerHTML = `$${(centsTotal/100).toFixed(2)}`;
   }
 }
 
