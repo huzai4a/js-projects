@@ -3,10 +3,11 @@ import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary(){
   // calls when page loaded
-  updateQuantityHTML();
+//   updateQuantityHTML();
 //   calculateItemsCost();
 
   let allItemsHtml = '';
@@ -121,6 +122,8 @@ export function renderOrderSummary(){
     element.addEventListener('click', () => {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
+
+      renderPaymentSummary();
       renderOrderSummary();
     });
   });
@@ -155,8 +158,9 @@ export function renderOrderSummary(){
         document.querySelector(`.js-cart-item-container-${productId}`).classList.remove('is-editing-quantity');
 
         // self-note: it wasn't worth putting the second queryselector in any fn since only here will it be changed
-        updateQuantityHTML();
-        renderOrderSummary()
+        // updateQuantityHTML();
+        renderPaymentSummary();
+        renderOrderSummary();
         // calculateItemsCost ();
       }
     });
@@ -181,7 +185,8 @@ export function renderOrderSummary(){
       document.querySelector(`.js-cart-item-container-${productId}`).classList.remove('is-editing-quantity');
 
       // self-note: it wasn't worth putting the second queryselector in any fn since only here will it be changed
-      updateQuantityHTML();
+    //   updateQuantityHTML();
+      renderPaymentSummary();
       renderOrderSummary();
     //   calculateItemsCost ();
       
@@ -199,14 +204,9 @@ export function renderOrderSummary(){
             
             document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
-            updateQuantityHTML();
+            renderPaymentSummary();
             // calculateItemsCost();
           });
       });
-
-  // updates header and order summary
-  function updateQuantityHTML(){
-    document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
-  }
 }
 

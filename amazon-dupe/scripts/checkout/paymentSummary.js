@@ -6,6 +6,7 @@ import { getDeliveryOption } from "../../data/deliveryOptions.js";
 export function renderPaymentSummary(){
     // calls when page is loaded
     calculateItemsCost();
+    updateQuantityHTML();
 
 
 
@@ -76,8 +77,13 @@ export function renderPaymentSummary(){
               Place your order
           </button>
           `;
-          
+
         // shows values on screen
         document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
     }
+
+  // updates header item count
+  function updateQuantityHTML(){
+    document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
+  }
 }
