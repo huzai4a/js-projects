@@ -1,7 +1,7 @@
 import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
 
 describe('addToCart test suite', () => {
-    it('adds an existing product to cart', () => {
+    beforeEach(()=>{
         // to prevent effects on real code
         spyOn(localStorage, 'setItem');
 
@@ -16,6 +16,9 @@ describe('addToCart test suite', () => {
         loadFromStorage();
 
         addToCart('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
+    });
+    
+    it('adds an existing product to cart', () => {
         expect(cart.length).toEqual(1);
         // check if set item was called
         expect(localStorage.setItem).toHaveBeenCalledTimes(1);
@@ -24,16 +27,6 @@ describe('addToCart test suite', () => {
     });
 
     it('adds new product to cart', () => {
-        // to prevent effects on real code
-        spyOn(localStorage, 'setItem');
-        
-        // gets empty string preventing real code effects
-        spyOn(localStorage, 'getItem').and.callFake(()=> {
-            return JSON.stringify([]);
-        });
-        loadFromStorage();
-
-        addToCart('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
         expect(cart.length).toEqual(1);
         // check if set item was called
         expect(localStorage.setItem).toHaveBeenCalledTimes(1);
