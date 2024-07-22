@@ -1,16 +1,16 @@
 class Cart{
-    localStorageKey;
+    #localStorageKey;
     cartItems;
 
     constructor(localStorageKey){
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     }
 
     // shortcut for loadfromStorage: function (){
-    loadFromStorage (){ 
+    #loadFromStorage (){ 
         // 'this' is the same as saying 'cart', ref to obj name
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) ||  
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) ||  
         [
             {
                 productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -25,7 +25,7 @@ class Cart{
     };
 
     saveToStorage(){
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems))
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems))
     };
 
     addToCart(productId) {
