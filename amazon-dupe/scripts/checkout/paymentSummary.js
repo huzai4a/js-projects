@@ -1,9 +1,11 @@
-import { cart, calculateCartQuantity } from "../../data/cart.js";
+// import { cart, calculateCartQuantity } from "../../data/cart.js";
+import { Cart } from "../../data/cart-class.js";
 import { formatCurrency } from '../utils/money.js';
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 export function renderPaymentSummary(){
+    const cart = new Cart('cartItems');
     // calls when page is loaded
     calculateItemsCost();
     updateQuantityHTML();
@@ -15,7 +17,7 @@ export function renderPaymentSummary(){
         let centsTotal = 0;
         let shippingTotal = 0;
 
-        cart.forEach((itemsChosen) => {
+        cart.cartItems.forEach((itemsChosen) => {
             const { productId } = itemsChosen;
             const product = getProduct(productId);
             
@@ -38,7 +40,7 @@ export function renderPaymentSummary(){
 
           <div class="payment-summary-row">
               <div>
-                Items (${calculateCartQuantity()})
+                Items (${cart.calculateCartQuantity()})
               </div>
               <div class="payment-summary-money">
               ${formatCurrency(centsTotal)}
@@ -84,6 +86,6 @@ export function renderPaymentSummary(){
 
   // updates header item count
   function updateQuantityHTML(){
-    document.querySelector('.js-header-quantity').innerHTML = `${calculateCartQuantity()} Items`;
+    document.querySelector('.js-header-quantity').innerHTML = `${cart.calculateCartQuantity()} Items`;
   }
 }

@@ -1,4 +1,5 @@
-import { calculateCartQuantity, cart, removeFromCart, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
+// import { calculateCartQuantity, cart, removeFromCart, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
+import { Cart } from '../../data/cart-class.js';
 import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
@@ -7,13 +8,14 @@ import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary(){
   // calls when page loaded
-//   updateQuantityHTML();
-//   calculateItemsCost();
+  // updateQuantityHTML();
+  // calculateItemsCost();
+  const cart = new Cart('cartItems');
 
   let allItemsHtml = '';
 
   // get info for generated html
-  cart.forEach((cartItem)=> {
+  cart.cartItems.forEach((cartItem)=> {
       const { productId } = cartItem;
 
       const matchingProduct = getProduct(productId);
@@ -121,7 +123,7 @@ export function renderOrderSummary(){
   document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
       const { productId, deliveryOptionId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
 
       renderPaymentSummary();
       renderOrderSummary();
@@ -152,7 +154,7 @@ export function renderOrderSummary(){
           return;
         }
 
-        updateQuantity(productId, newQuantity);
+        cart.updateQuantity(productId, newQuantity);
 
         // show the save and input
         document.querySelector(`.js-cart-item-container-${productId}`).classList.remove('is-editing-quantity');
@@ -179,7 +181,7 @@ export function renderOrderSummary(){
         return;
       }
 
-      updateQuantity(productId, newQuantity);
+      cart.updateQuantity(productId, newQuantity);
 
       // show the save and input
       document.querySelector(`.js-cart-item-container-${productId}`).classList.remove('is-editing-quantity');
@@ -200,7 +202,7 @@ export function renderOrderSummary(){
           link.addEventListener('click', () => {
             // reminder that going from kebab case to camel case when going from html dataset to js const
             const {productId} = link.dataset;
-            removeFromCart(productId);
+            cart.removeFromCart(productId);
             
             renderOrderSummary();
             renderPaymentSummary();
