@@ -33,9 +33,29 @@ class Product {
   getPrice(){
     return `${formatCurrency(this.priceCents)}`;
   }
+
+  // allows clothing to use this function as needed
+  extraInfoHTML(){
+    return '';
+  }
 }
 
+class Clothing extends Product { //makes product parent of clothing
+  sizeChartLink;
 
+  constructor(productDetails){
+    super(productDetails); // calls parent constructor 
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    // super.extraInfoHTML(); to call parent method
+    // target="_blank" means open in new tab
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    `;
+  }
+}
 
 export const products = [
   {
@@ -697,5 +717,10 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);  
+  }
+  // won't reach here if statement is true
   return new Product(productDetails);
+  
 }); // map takes an array and makes a new one based on the returns of the function used 
