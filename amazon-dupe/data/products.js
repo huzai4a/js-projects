@@ -57,6 +57,25 @@ class Clothing extends Product { //makes product parent of clothing
   }
 }
 
+// const date = new Date();
+// console.log(date.toLocaleTimeString());
+
+/*
+const object2 = {
+  a: 3,
+  // this.a is undefined since the ref happens before object2 if created
+  b: this.a
+};
+*/
+
+/*
+function logThis(){
+  console.log(this);
+}
+logThis.call('hello'); //gives this a value
+// NOTE: arrow functions dont change the val of this
+*/
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
