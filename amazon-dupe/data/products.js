@@ -52,7 +52,25 @@ class Clothing extends Product { //makes product parent of clothing
     // super.extraInfoHTML(); to call parent method
     // target="_blank" means open in new tab
     return `
-    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    <a href="${this.sizeChartLink}" target="_blank" class="extra-info-link">Size Chart</a>
+    `;
+  }
+}
+
+class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+
+  extraInfoHTML(){
+    return `
+    <a href="${this.instructionsLink}" target="_blank" class="extra-info-link">Instructions</a>
+    <a href="${this.warrantyLink}" target="_blank" class="extra-info-link">Warranty</a>
     `;
   }
 }
@@ -136,7 +154,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -323,7 +344,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -628,7 +652,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -688,7 +715,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -738,10 +768,14 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
+
   if (productDetails.type === 'clothing') {
     return new Clothing(productDetails);  
+  } else if (productDetails.type === 'appliance'){
+    return new Appliance(productDetails);
+  } else{
+    // won't reach here if statement is true
+    return new Product(productDetails);
   }
-  // won't reach here if statement is true
-  return new Product(productDetails);
   
 }); // map takes an array and makes a new one based on the returns of the function used 

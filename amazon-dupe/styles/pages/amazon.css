@@ -148,6 +148,14 @@
   opacity: 1;
 }
 
+.extra-info-link{
+  text-decoration: none;
+  color: rgb(1, 124, 182);
+}
+.extra-info-link:hover{
+  color: rgb(196, 80, 0);
+}
+
 .added-to-cart img {
   height: 20px;
   margin-right: 5px;
