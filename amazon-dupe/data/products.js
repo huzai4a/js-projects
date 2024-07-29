@@ -94,6 +94,35 @@ logThis.call('hello'); //gives this a value
 // NOTE: arrow functions dont change the val of this
 */
 
+export let products = [];
+
+export function loadProducts(func){
+  const xhr = new XMLHttpRequest;
+  
+  xhr.addEventListener('load', ()=>{
+    products =  JSON.parse(xhr.response).map((productDetails)=>{
+
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);  
+      } else if (productDetails.type === 'appliance'){
+        return new Appliance(productDetails);
+      } else{
+        // won't reach here if statement is true
+        return new Product(productDetails);
+      }
+      
+    }); // map takes an array and makes a new one based on the returns of the function used
+    
+    console.log('products loaded successfully.');
+    func();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products')
+  xhr.send();
+}
+loadProducts();
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -778,4 +807,5 @@ export const products = [
     return new Product(productDetails);
   }
   
-}); // map takes an array and makes a new one based on the returns of the function used 
+}); // map takes an array and makes a new one based on the returns of the function used
+*/
