@@ -96,6 +96,34 @@ logThis.call('hello'); //gives this a value
 
 export let products = [];
 
+export function loadProductsFetch(){
+  // automatically a 'GET'
+  // fetch is a promise
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response)=>{
+    // gives parsed json automatically to productsData
+    return response.json();
+
+  }).then((productsData)=>{
+    products =  productsData.map((productDetails)=>{
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);  
+      } else if (productDetails.type === 'appliance'){
+        return new Appliance(productDetails);
+      } else{
+        // won't reach here if statement is true
+        return new Product(productDetails);
+      }
+      
+    }); // map takes an array and makes a new one based on the returns of the function used
+
+    console.log('products loaded successfully.');
+  });
+  // now we can add another step when calling the fn
+  return promise;
+}
+
 export function loadProducts(func){
   const xhr = new XMLHttpRequest;
   

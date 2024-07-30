@@ -201,6 +201,7 @@ export function renderOrderSummary(){
       .forEach((link) => {
           link.addEventListener('click', () => {
             // reminder that going from kebab case to camel case when going from html dataset to js const
+            console.log('btn was clicked')
             const {productId} = link.dataset;
             cart.removeFromCart(productId);
             
