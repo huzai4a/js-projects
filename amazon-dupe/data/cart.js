@@ -31,8 +31,8 @@ export function addToCart(productId) {
         }
     });
 
-    // const quantity = Number(document.querySelector(`.js-select-${productId}`).value);
-    const quantity = 1; // use for add to cart testing
+    const quantity = Number(document.querySelector(`.js-select-${productId}`).value);
+    // const quantity = 1; // use for add to cart testing
 
     if (dupeItem){
         dupeItem.quantity+= quantity;

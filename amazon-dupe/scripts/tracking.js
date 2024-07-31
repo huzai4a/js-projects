@@ -33,7 +33,8 @@ const deliveryTime = dayjs(matchingOrder[0].estimatedDeliveryTime);
 // currentTime
 const today = dayjs();
 
-const percentProgress = (today-orderTime)/(deliveryTime-orderTime)*1000;
+const percentProgress = ((today-orderTime)/(deliveryTime-orderTime))*200;
+console.log(percentProgress);
 const formattedArrivalDate = deliveryTime.format('dddd, MMMM D');
 
 const html = 

@@ -38,9 +38,16 @@ export class Cart{
                 dupeItem = cartItem;
             }
         });
-    
-        // const quantity = Number(document.querySelector(`.js-select-${productId}`).value);
-        const quantity = 1; // use for add to cart testing
+
+        let quantity;
+        
+        try{
+            quantity = Number(document.querySelector(`.js-select-${productId}`).value);
+        } catch{
+            // if theres an error above then the quantity is 1 (buy it again btn)
+            quantity = 1;
+        }
+        // const quantity = 1; // use for add to cart testing
     
         if (dupeItem){
             dupeItem.quantity+= quantity;
