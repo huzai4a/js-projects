@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadCart, loadCartFetch } from "../data/cart.js";
 // import '../data/backend-practice.js';
 // import '../data/cart-class.js';
 
@@ -13,13 +13,16 @@ async function loadPage(){
     // NOTE: await is only used in an async fn
     await loadProductsFetch(); //replaces .then
 
-    await new Promise((resolve)=>{
-      // throw 'error2';
-      loadCart(()=>{
-        // reject('error in the future');
-        resolve();
-      });
-    });
+    // await loadCartFetch();
+
+
+    // await new Promise((resolve)=>{
+    //   // throw 'error2';
+    //   loadCart(()=>{
+    //     // reject('error in the future');
+    //     resolve();
+    //   });
+    // });
 
   } catch(error){
     console.log('error. try again later');

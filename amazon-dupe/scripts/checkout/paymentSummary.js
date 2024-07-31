@@ -101,6 +101,7 @@ export function renderPaymentSummary(){
         addOrder(order);
 
         window.location.href = 'orders.html';
+        localStorage.setItem('cartItems', JSON.stringify([]));
         } catch (error) {
             console.log('an error occured, try again later\n' + error);
         }

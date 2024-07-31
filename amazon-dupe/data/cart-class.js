@@ -10,7 +10,8 @@ export class Cart{
     // shortcut for loadfromStorage: function (){
     #loadFromStorage (){ 
         // 'this' is the same as saying 'cart', ref to obj name
-        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) ||  
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
+        /*||  
         [
             {
                 productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -21,7 +22,7 @@ export class Cart{
                 quantity: 1,
                 deliveryOptionId: '3'
             }
-        ];
+        ];*/
     };
 
     saveToStorage(){
