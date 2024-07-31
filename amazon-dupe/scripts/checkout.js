@@ -7,15 +7,24 @@ import { loadCart } from "../data/cart.js";
 
 // async basically wraps a function in promise
 async function loadPage(){
-  // await allows async code to be written like normal code
-  // NOTE: await is only used in an async fn
-  await loadProductsFetch(); //replaces .then
+  try{
+    // throw 'error1';
+    // await allows async code to be written like normal code
+    // NOTE: await is only used in an async fn
+    await loadProductsFetch(); //replaces .then
 
-  await new Promise((resolve)=>{
-    loadCart(()=>{
-      resolve();
+    await new Promise((resolve)=>{
+      // throw 'error2';
+      loadCart(()=>{
+        reject('error in the future');
+        resolve();
+      });
     });
-  });
+
+  } catch(error){
+    console.log('error. try again later');
+    console.log(error);
+  }
 
   // done after both awaits
   renderOrderSummary();

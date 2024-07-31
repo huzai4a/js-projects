@@ -119,6 +119,9 @@ export function loadProductsFetch(){
     }); // map takes an array and makes a new one based on the returns of the function used
 
     console.log('products loaded successfully.');
+  }).catch((error)=>{
+    console.log('error. try again later');
+    console.log(error);
   });
   // now we can add another step when calling the fn
   return promise;
@@ -144,6 +147,11 @@ export function loadProducts(func){
     console.log('products loaded successfully.');
     func();
   });
+
+  xhr.addEventListener('error', (error)=>{
+    console.log('error. try again later');
+    console.log(error);
+  })
 
   xhr.open('GET', 'https://supersimplebackend.dev/products')
   xhr.send();
