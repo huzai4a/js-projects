@@ -18,8 +18,8 @@ if (orders.length === 0){
   let allOrdersHtml = '';
     orders.forEach((order)=>{
       // splits orderTime and takes the YYYY-MM-DD form for this const
-      const date = order.orderTime.split('T')[0];
-      const formattedOrderPlaced = dayjs(date, 'YYYY-MM-DD').format('MMMM D');
+      const date = dayjs(order.orderTime);
+      const formattedOrderPlaced = date.format('MMMM D');
 
       // this html is different for each order
       let orderHtml = 
