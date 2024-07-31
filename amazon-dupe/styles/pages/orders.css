@@ -2,6 +2,34 @@
   margin-bottom:30px;
 }
 
+.added-to-cart {
+  color: rgb(6, 125, 98);
+  font-size: 16px;
+
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  margin-bottom: 8px;
+
+  /* At first, the "Added to cart" message will
+     be invisible. Use JavaScript to change the
+     opacity and make it visible. */
+  opacity: 0;
+}
+.added-to-cart img {
+  height: 20px;
+  margin-right: 5px;
+}
+
+/* add this class to make added text visible */
+.visible{
+  opacity: 1;
+}
+
+.buy-again-container{
+  display: flex;
+}
+
 .main {
   max-width: 850px;
   margin-top: 90px;

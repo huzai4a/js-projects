@@ -1,11 +1,12 @@
 import { orders } from "../data/orders.js";
-import { calculateCartQuantity } from "../data/cart.js";
+import { Cart } from "../data/cart-class.js";
 import { formatCurrency } from './utils/money.js';
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
 
+const cart = new Cart('cartItems');
 // header cart quantity
-document.querySelector('.js-total-quantity').innerHTML = calculateCartQuantity();
+updateCartQuantity();
 
 // no orders
 if (orders.length === 0){
@@ -76,10 +77,16 @@ if (orders.length === 0){
           <div class="product-quantity">
             Quantity: ${item.quantity}
           </div>
-          <button class="buy-again-button button-primary">
-            <img class="buy-again-icon" src="images/icons/buy-again.png">
-            <span class="buy-again-message">Buy it again</span>
-          </button>
+          <div class="buy-again-container">
+            <button class="buy-again-button button-primary js-buy-again" data-product-id="${matchingProduct.id}">
+              <img class="buy-again-icon" src="images/icons/buy-again.png">
+              <span class="buy-again-message">Buy it again</span>
+            </button>
+            <div class="added-to-cart js-added-${matchingProduct.id}">
+              <img src="images/icons/checkmark.png">
+              Added
+            </div>
+          </div>
         </div>
 
         <div class="product-actions">
@@ -96,4 +103,41 @@ if (orders.length === 0){
     }
 
     document.querySelector('.js-orders').innerHTML = allOrdersHtml;
+}
+
+function updateCartQuantity () {
+  document.querySelector('.js-total-quantity').innerHTML = `${cart.calculateCartQuantity()}`;
+}
+
+document.querySelectorAll('.js-buy-again').forEach((btn)=>{
+  btn.addEventListener('click', () => {
+      const { productId } = btn.dataset;
+      
+      cart.addToCart(productId);
+      updateCartQuantity();
+      
+      toggleAddedText(productId);
+      
+  });
+});
+
+// deals with timeout timing when showing 'added' text
+const addedTimeouts = [];
+
+function toggleAddedText(productId){
+  document.querySelector(`.js-added-${productId}`).classList.add('visible');
+      
+  
+      // if there was a previous timeout its id would be saved and referenced by productId as add to cart is clicked
+      const previousTimeout = addedTimeouts[productId];
+      // same thing as saying != null
+      if (previousTimeout){
+          clearTimeout(previousTimeout)
+      }
+
+      // hides added text after 2s
+      const timeoutID = setTimeout(()=>{
+          document.querySelector(`.js-added-${productId}`).classList.remove('visible');
+      }, 2000);
+      addedTimeouts[productId] = timeoutID;
 }
