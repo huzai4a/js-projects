@@ -1,17 +1,20 @@
 // import { cart as myCart } from '../data/cart.js';
 // import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { Cart } from '../data/cart-class.js';
-import { products, loadProducts } from '../data/products.js';
+import { products, loadProductsFetch } from '../data/products.js';
+import { renderNavbar } from './navbar.js';
 import { formatCurrency } from './utils/money.js';
 
 // since this function is run in the future, its called a callback
-loadProducts(renderProductsGrid);
+await loadProductsFetch();
+renderProductsGrid();
+// loadProducts(renderProductsGrid);
 
 
 function renderProductsGrid (){
     const cart = new Cart('cartItems');
     // does on page load up
-    updateCartQuantity();
+    renderNavbar(cart);
 
     let productsHTML = '';
 
@@ -82,17 +85,12 @@ function renderProductsGrid (){
             
             cart.addToCart(productId);
 
-            updateCartQuantity();
+            renderNavbar(cart);
             
             toggleAddedText(productId);
             
         });
     });
-
-
-    function updateCartQuantity () {
-        document.querySelector('.js-total-quantity').innerHTML = `${cart.calculateCartQuantity()}`;
-    }
 
     function toggleAddedText(productId){
         document.querySelector(`.js-added-${productId}`).classList.add('visible');

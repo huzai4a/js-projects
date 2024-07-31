@@ -2,11 +2,12 @@ import { orders } from "../data/orders.js";
 import { Cart } from "../data/cart-class.js";
 import { formatCurrency } from './utils/money.js';
 import { getProduct, loadProductsFetch } from "../data/products.js";
+import { renderNavbar } from "./navbar.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
 
 const cart = new Cart('cartItems');
-// header cart quantity
-updateCartQuantity();
+// navbar
+renderNavbar(cart);
 
 // no orders
 if (orders.length === 0){
@@ -105,16 +106,12 @@ if (orders.length === 0){
     document.querySelector('.js-orders').innerHTML = allOrdersHtml;
 }
 
-function updateCartQuantity () {
-  document.querySelector('.js-total-quantity').innerHTML = `${cart.calculateCartQuantity()}`;
-}
-
 document.querySelectorAll('.js-buy-again').forEach((btn)=>{
   btn.addEventListener('click', () => {
       const { productId } = btn.dataset;
       
       cart.addToCart(productId);
-      updateCartQuantity();
+      renderNavbar(cart);
       
       toggleAddedText(productId);
       

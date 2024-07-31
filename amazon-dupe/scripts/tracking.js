@@ -2,6 +2,7 @@ import { getProduct, loadProductsFetch } from "../data/products.js";
 import { Cart } from "../data/cart-class.js";
 import { orders } from "../data/orders.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export
+import { renderNavbar } from "./navbar.js";
 
 const url = new URL (window.location.href);
 const orderId = url.searchParams.get('orderId');
@@ -9,7 +10,7 @@ const productId = url.searchParams.get('productId');
 
 const cart = new Cart('cartItems');
 await loadProductsFetch();
-updateCartQuantity();
+renderNavbar(cart);
 
 let matchingOrder = [];
 let orderTime = {};
