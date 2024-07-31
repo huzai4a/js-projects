@@ -3,6 +3,7 @@ import { Cart } from "../../data/cart-class.js";
 import { formatCurrency } from '../utils/money.js';
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
+import { addOrder } from "../../data/orders.js";
 
 export function renderPaymentSummary(){
     const cart = new Cart('cartItems');
@@ -75,7 +76,7 @@ export function renderPaymentSummary(){
               </div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
               Place your order
           </button>
           `;
@@ -84,8 +85,31 @@ export function renderPaymentSummary(){
         document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
     }
 
-  // updates header item count
-  function updateQuantityHTML(){
-    document.querySelector('.js-header-quantity').innerHTML = `${cart.calculateCartQuantity()} Items`;
-  }
+    document.querySelector('.js-place-order').addEventListener('click', async ()=>{
+        try{
+            const response = await 
+        fetch('https://supersimplebackend.dev/orders', {
+            method: 'POST',
+            headers:{
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({
+                cart: cart.cartItems
+            })
+        });
+        const order = await response.json();
+        addOrder(order);
+
+        window.location.href = 'orders.html';
+        } catch (error) {
+            console.log('an error occured, try again later\n' + error);
+        }
+        
+        
+    });
+
+    // updates header item count
+    function updateQuantityHTML(){
+        document.querySelector('.js-header-quantity').innerHTML = `${cart.calculateCartQuantity()} Items`;
+    } 
 }
