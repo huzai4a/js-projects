@@ -148,6 +148,10 @@
   opacity: 1;
 }
 
+.textbox{
+  margin:  100px 0px 0 35px;
+}
+
 .extra-info-link{
   text-decoration: none;
   color: rgb(1, 124, 182);
@@ -165,4 +169,10 @@
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+}
+
+.page-title {
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 25px;
 }

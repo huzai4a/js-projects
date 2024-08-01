@@ -44,6 +44,7 @@ export function renderNavbar(cart){
       search();
     }
   });
+  
   // when searching
   function search(){
     const userSearch = document.querySelector('.js-value').value;
@@ -52,7 +53,7 @@ export function renderNavbar(cart){
       alert('Query must be between 1 and 32 characters');
       return;
     }
-    
+
     window.location.href = `amazon.html?search=${userSearch}`;
   }
 }
