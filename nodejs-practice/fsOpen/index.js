@@ -54,6 +54,14 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
+app.use(express.json())
+
+app.post('/api/notes', (request, response) => {
+  const note = request.body
+  console.log(note)
+  response.json(note)
+})
+
 /*
 Now app.get('/api/notes/:id', ...) will handle all HTTP GET requests that are of the form /api/notes/SOMETHING, where SOMETHING is an arbitrary string.
 */
@@ -67,6 +75,11 @@ app.get('/api/notes/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+});
+
+// for the .rest file
+app.get('/api/notes', (request, response) => {
+  response.json(notes);
 });
 
 /*
