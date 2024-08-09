@@ -1,3 +1,5 @@
+GET http://localhost:3001/api/notes
+###
 POST http://localhost:3001/api/notes
 Content-Type: application/json
 
@@ -6,4 +8,6 @@ Content-Type: application/json
     "important": true
 }
 
-# multiple requests are separated by double hash
+# this file contains docs for formatting this .rest file: 
+# https://github.com/Huachao/vscode-restclient/blob/master/README.md#usage
+# multiple requests are separated by double hash: ###
