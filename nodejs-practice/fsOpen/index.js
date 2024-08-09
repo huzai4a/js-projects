@@ -50,16 +50,24 @@ const app = http.createServer((request, response) => {
 })
 */
 
+// for the .rest file
+app.get('/api/notes', (request, response) => {
+  response.json(notes);
+});
+
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-app.use(express.json())
+/*
+The json-parser takes the JSON data of a request, transforms it into a JavaScript object and then attaches it to the body property of the request object before the route handler is called. 
+*/
+app.use(express.json());
 
 app.post('/api/notes', (request, response) => {
-  const note = request.body
-  console.log(note)
-  response.json(note)
+  const note = request.body;
+  console.log(note);
+  response.json(note);
 })
 
 /*
@@ -77,10 +85,7 @@ app.get('/api/notes/:id', (request, response) => {
   }
 });
 
-// for the .rest file
-app.get('/api/notes', (request, response) => {
-  response.json(notes);
-});
+
 
 /*
 app.delete('/api/notes/:id', (request, response) => {
