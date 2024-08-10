@@ -2,7 +2,7 @@ GET http://localhost:3001/api/notes
 ###
 POST http://localhost:3001/api/notes
 Content-Type: application/json
-
+# if there's a space between the above lines there will be an error (no headers are set)
 {
     "content": "This is a testing content string", 
     "important": true
