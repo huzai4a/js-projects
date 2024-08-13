@@ -64,10 +64,35 @@ The json-parser takes the JSON data of a request, transforms it into a JavaScrip
 */
 app.use(express.json());
 
+// gets highest id so far in notes
+const generateId = () => {
+  const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => Number(n.id)))
+    : 0
+  return String(maxId + 1)
+}
+
 app.post('/api/notes', (request, response) => {
-  const note = request.body;
-  console.log(note);
-  response.json(note);
+  // note: json-parser required to do request.body
+  const body = request.body
+
+  // no content throws error
+  if (!body.content) {
+    return response.status(400).json({ 
+      error: 'content missing' 
+    })
+  }
+
+  const note = {
+    content: body.content,
+    // auto false
+    important: Boolean(body.important) || false,
+    id: generateId(),
+  }
+
+  notes = notes.concat(note)
+
+  response.json(note)
 })
 
 /*
