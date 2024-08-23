@@ -11,6 +11,9 @@ const os = require('os');
 const path = require('path');
 // dont need to say js extension
 const math = require('./math');
+// file handling
+const fs = require('fs');
+
 
 /*
 console.log(os.type());
@@ -27,3 +30,25 @@ console.log(path.extname(__filename));
 
 console.log(path.parse(__filename));
 */
+
+fs.readFile(path.join(__dirname,'files','sample.txt'),'utf8', (err, data)=>{
+    if (err) throw err;
+    console.log(data);
+})
+
+// utf8 auto
+fs.writeFile(path.join(__dirname,'files','reply.txt'), 'This is my write to the file content', (err)=>{
+    if (err) throw err;
+    console.log('completed write');
+})
+
+fs.appendFile(path.join(__dirname,'files','reply.txt'), 'This is my append to the file content', (err)=>{
+    if (err) throw err;
+    console.log('completed write');
+})
+
+// note: process is built into node
+process.on('uncaughtException', err =>{
+    console.error(`Uncaught error: ${err}`)
+    process.exit(1);
+})
